@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TaskService } from '../../../core/services/task-service';
 import { TaskItem } from '../task-item/task-item';
 import { TaskList } from '../task-list/task-list';
+import { TaskForm } from '../task-form/task-form';
+import { NewTask } from '../../../core/models/task.model';
 
 @Component({
   selector: 'tm-tasks-page',
-  imports: [TaskItem, TaskList],
+  imports: [TaskItem, TaskList, TaskForm],
   templateUrl: './tasks-page.html',
   styleUrl: './tasks-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +18,10 @@ export class TasksPage {
   tasks = this.taskService.tasks;
   completedTasksCount = this.taskService.completedCount;
   pendingTasksCount = this.taskService.pendingCount;
+
+  onSubmit(task: NewTask): void {
+    this.taskService.addTask(task);
+  }
 
   onToggle(taskId: string): void {
     this.taskService.toggleTaskCompletion(taskId);
