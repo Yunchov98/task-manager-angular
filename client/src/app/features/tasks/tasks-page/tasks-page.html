@@ -1,0 +1,6 @@
+<div>
+  <p>Completed tasks: {{ completedTasksCount() }}</p>
+  <p>Pending tasks: {{ pendingTasksCount() }}</p>
+</div>
+
+<tm-task-list [tasks]="tasks()" (deleteTask)="onDelete($event)" (toggleTask)="onToggle($event)" />
