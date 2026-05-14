@@ -1,4 +1,3 @@
-
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
 ## TypeScript Best Practices
@@ -53,3 +52,41 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Design services around a single responsibility
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
+
+## Project Context
+
+This is a learning project built to strengthen Angular, RxJS, and Signals skills.
+The developer has 1.7 years of professional Angular experience.
+
+## Project Structure
+
+- `client/` — Angular frontend
+- `server/` — Node.js backend (coming later)
+
+## Learning Goals
+
+### RxJS Operators to practice
+
+- switchMap — HTTP requests, search with cancellation
+- mergeMap — parallel requests
+- combineLatest — combining multiple streams
+- forkJoin — parallel HTTP calls that complete
+- debounceTime — search input optimization
+- distinctUntilChanged — avoid duplicate emissions
+- catchError — error handling
+- takeUntilDestroyed — automatic unsubscribe
+
+### Angular Signals (deepen knowledge)
+
+- signal(), computed(), effect()
+- linkedSignal()
+- toSignal(), toObservable() — bridge between Signals and RxJS
+- resource() — async data fetching with signals
+
+### Other important topics
+
+- OnPush change detection strategy
+- Reactive Forms with validation
+- Route Guards (functional guards)
+- Lazy loading
+- Angular Material theming + dark mode
