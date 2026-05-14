@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from '@angular/core';
 
-import { Task } from '../models/task.model';
+import { NewTask, Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +36,14 @@ export class TaskService {
   completedCount = computed(() => this.completedTasks().length);
   pendingCount = computed(() => this.pendingTasks().length);
 
-  addTask(task: Task): void {
+  addTask(newTask: NewTask): void {
+    const task: Task = {
+      ...newTask,
+      id: crypto.randomUUID(),
+      completed: false,
+      createdAt: new Date(),
+    };
+
     this._tasks.update((tasks) => [...tasks, task]);
   }
 
