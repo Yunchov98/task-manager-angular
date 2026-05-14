@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TaskService } from '../../../core/services/task-service';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+
 import { TaskItem } from '../task-item/task-item';
+import { Task } from '../../../core/models/task.model';
 
 @Component({
   selector: 'tm-task-list',
@@ -10,17 +11,16 @@ import { TaskItem } from '../task-item/task-item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskList {
-  private taskService = inject(TaskService);
+  tasks = input.required<Task[]>();
 
-  tasks = this.taskService.tasks;
-  completedTasksCount = this.taskService.completedCount;
-  pendingTasksCount = this.taskService.pendingCount;
+  toggleTask = output<string>();
+  deleteTask = output<string>();
 
   onToggle(taskId: string): void {
-    this.taskService.toggleTaskCompletion(taskId);
+    this.toggleTask.emit(taskId);
   }
 
   onDelete(taskId: string): void {
-    this.taskService.deleteTask(taskId);
+    this.deleteTask.emit(taskId);
   }
 }
