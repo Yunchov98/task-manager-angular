@@ -6,7 +6,29 @@ import { Task } from '../models/task.model';
   providedIn: 'root',
 })
 export class TaskService {
-  private _tasks = signal<Task[]>([]);
+  private _tasks = signal<Task[]>([
+    {
+      id: '1',
+      title: 'Fix dark mode CSS variables',
+      description: 'Replace hardcoded colors with CSS variables',
+      completed: true,
+      createdAt: new Date('2026-05-13'),
+    },
+    {
+      id: '2',
+      title: 'Implement RxJS switchMap for search',
+      description: 'Use debounceTime + distinctUntilChanged for optimization',
+      completed: false,
+      createdAt: new Date('2026-05-14'),
+    },
+    {
+      id: '3',
+      title: 'Add Angular Signals to task list',
+      description: 'Replace BehaviorSubject with signal() and computed()',
+      completed: false,
+      createdAt: new Date('2026-05-15'),
+    },
+  ]);
 
   tasks = computed(() => this._tasks());
 
