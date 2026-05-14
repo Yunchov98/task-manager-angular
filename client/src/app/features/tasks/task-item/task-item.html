@@ -1,1 +1,6 @@
-<p>task-item works!</p>
+<div [class.completed]="task().completed">
+  <input type="checkbox" [checked]="task().completed" (change)="onToggle()" />
+  <span>{{ task().title }}</span>
+  <p>{{ task().description }}</p>
+  <button (click)="onDelete()">Delete</button>
+</div>

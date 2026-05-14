@@ -5,6 +5,8 @@
 
 <ul>
   @for (task of tasks(); track task.id) {
-    <li>{{ task.title }}</li>
+    <li>
+      <tm-task-item [task]="task" (deleteTask)="onDelete($event)" (toggleTask)="onToggle($event)" />
+    </li>
   }
 </ul>

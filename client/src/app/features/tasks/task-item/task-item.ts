@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { Task } from '../../../core/models/task.model';
 
 @Component({
   selector: 'tm-task-item',
@@ -7,4 +8,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './task-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskItem {}
+export class TaskItem {
+  task = input.required<Task>();
+
+  toggleTask = output<string>();
+  deleteTask = output<string>();
+
+  onToggle(): void {
+    this.toggleTask.emit(this.task().id);
+  }
+
+  onDelete(): void {
+    this.deleteTask.emit(this.task().id);
+  }
+}
