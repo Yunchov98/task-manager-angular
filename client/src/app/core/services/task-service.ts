@@ -31,6 +31,9 @@ export class TaskService {
   ]);
 
   tasks = computed(() => this._tasks());
+  completedTasks = computed(() => this._tasks().filter((task) => task.completed));
+  pendingTasks = computed(() => this._tasks().filter((task) => !task.completed));
+  completedCount = computed(() => this.completedTasks().length);
 
   addTask(task: Task): void {
     this._tasks.update((tasks) => [...tasks, task]);
