@@ -90,3 +90,28 @@ The developer has 1.7 years of professional Angular experience.
 - Route Guards (functional guards)
 - Lazy loading
 - Angular Material theming + dark mode
+
+## Progress
+
+### Completed
+
+- Project setup with Angular 21, Material, ESLint, Prettier
+- Folder structure (core, shared, features)
+- Task model and NewTask type
+- TaskService with Signals (signal, computed)
+- CRUD operations (add, toggle, delete)
+- Smart/dumb component architecture:
+  - tasks-page (smart) — orchestrator
+  - task-list (dumb) — renders list
+  - task-item (dumb) — renders single task
+  - task-form — reactive form with validation
+- Event bubbling pattern (output → output → service)
+
+### Next
+
+- Angular Material UI (toolbar, sidebar, cards)
+- Dark mode toggle
+- Filter chips (All / Pending / Completed)
+- Search with RxJS (debounceTime, switchMap)
+- Route Guards + Lazy loading
+- Node.js backend (Express REST API)
