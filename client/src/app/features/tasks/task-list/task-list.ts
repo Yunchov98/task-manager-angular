@@ -12,4 +12,6 @@ export class TaskList {
   private taskService = inject(TaskService);
 
   tasks = this.taskService.tasks;
+  completedTasksCount = this.taskService.completedCount;
+  pendingTasksCount = this.taskService.pendingCount;
 }
