@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TaskService } from '../../../core/services/task-service';
-import { TaskItem } from '../task-item/task-item';
+
 import { TaskList } from '../task-list/task-list';
 import { TaskForm } from '../task-form/task-form';
+
 import { NewTask } from '../../../core/models/task.model';
+import { TaskService } from '../../../core/services/task-service';
 
 @Component({
   selector: 'tm-tasks-page',
-  imports: [TaskItem, TaskList, TaskForm],
+  imports: [TaskList, TaskForm],
   templateUrl: './tasks-page.html',
   styleUrl: './tasks-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
