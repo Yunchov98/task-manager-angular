@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TaskList } from '../task-list/task-list';
 import { TaskForm } from '../task-form/task-form';
 
-import { NewTask } from '../../../core/models/task.model';
+import { NewTask, TaskStatus } from '../../../core/models/task.model';
 import { TaskService } from '../../../core/services/task-service';
 
 @Component({
@@ -17,7 +17,7 @@ export class TasksPage {
   private taskService = inject(TaskService);
 
   tasks = this.taskService.tasks;
-  completedTasksCount = this.taskService.completedCount;
+  doneTasksCount = this.taskService.doneCount;
   pendingTasksCount = this.taskService.pendingCount;
 
   onSubmit(task: NewTask): void {
@@ -25,7 +25,13 @@ export class TasksPage {
   }
 
   onToggle(taskId: string): void {
-    this.taskService.toggleTaskCompletion(taskId);
+    const task = this.tasks().find((task) => task.id === taskId);
+
+    if (!task) return;
+
+    const newStatus = task.status === TaskStatus.Done ? TaskStatus.Todo : TaskStatus.Done;
+
+    this.taskService.updateTaskStatus(taskId, newStatus);
   }
 
   onDelete(taskId: string): void {

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Task } from '../../../core/models/task.model';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { Task, TaskStatus } from '../../../core/models/task.model';
 
 @Component({
   selector: 'tm-task-item',
@@ -10,6 +10,7 @@ import { Task } from '../../../core/models/task.model';
 })
 export class TaskItem {
   task = input.required<Task>();
+  completedTask = computed(() => this.task().status === TaskStatus.Done);
 
   toggleTask = output<string>();
   deleteTask = output<string>();
