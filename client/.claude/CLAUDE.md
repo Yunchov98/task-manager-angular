@@ -75,7 +75,6 @@ The app supports **two view modes** for the same task data:
   - Values: `'todo' | 'doing' | 'done'`
 - Domain metadata lives alongside `TaskStatus`:
   - `TaskStatusLabel: Record<TaskStatus, string>` — human-readable labels
-  - `TaskStatusIcon: Record<TaskStatus, string>` — Material Symbol names
 - `TaskService` exposes:
   - Per-status computed signals: `todoTasks`, `doingTasks`, `doneTasks`, `pendingTasks`
   - Per-status counts: `todoCount`, `doingCount`, `doneCount`, `pendingCount`
@@ -83,12 +82,19 @@ The app supports **two view modes** for the same task data:
 
 ## Design Decisions
 
-- **Status control**: chip with `mat-menu` dropdown (not checkbox). Checkbox implies binary; chip+menu matches the 3-status model and works identically in list and board views.
-- **Status colors**: semantic CSS variables mapped to `--mat-sys-*` system tokens (free dark mode).
-  - `--status-todo: outline (neutral)`
-  - `--status-doing: primary (azure)`
-  - `--status-done: tertiary (green-ish)`
+- **List view status control**: styled checkbox div with checkmark icon when done. Click toggles between Todo ↔ Done. Matches the "Calm Azure" design from the design variants.
+- **Board view status control**: cards live in their respective columns. Status changes happen via drag & drop or a card-level menu (TBD).
+- **Component separation**: list view and board view use separate item components (`task-item` for list, `task-card` for kanban) — simpler than one component with conditional rendering since visual structures differ significantly.
 - **Routing**: route-based view switching (`/tasks/list`, `/tasks/board`). Lazy-loaded via `loadComponent`.
+
+## Design System
+
+- `_tokens.scss` — spacing, radius, typography, transitions, z-index, layout, component sizes, borders
+- `_colors.scss` — domain-specific color tokens (task-completed-text, task-card-bg, etc.)
+- `_reset.scss` — minimal CSS reset (box-sizing, margins, list-style, etc.)
+- Material 3 theme with azure primary palette via `mat.theme()`
+- Component sizes (`--size-xs` through `--size-4xl`) for consistent dimensions across components
+- `--border-base: 2px solid var(--mat-sys-outline)` — reusable border token
 
 ## Learning Goals
 
@@ -125,7 +131,9 @@ The app supports **two view modes** for the same task data:
 
 - Project setup with Angular 21, Material, ESLint, Prettier
 - Folder structure (core, shared, features)
-- Design tokens (`_colors.scss`, `_tokens.scss`)
+- Design tokens (`_colors.scss`, `_tokens.scss`, `_reset.scss`)
+- Component size scale (`--size-xs` through `--size-4xl`)
+- `--border-base` reusable border token
 - Material 3 theme with azure primary palette
 - Task model with `TaskStatus` (`as const` enum pattern) + `TaskStatusLabel`
 - `TaskService` with Signals (signal, computed)
@@ -137,21 +145,34 @@ The app supports **two view modes** for the same task data:
   - task-item (dumb) — renders single task
   - task-form — reactive form with validation
 - Event bubbling pattern (output → output → service)
+- **Phase 1 refactoring complete** — aligned components with `TaskStatus` model:
+  - `task-item`: `completedTask` computed signal, removed `completed` boolean references
+  - `task-list`: propagates `toggleTask` upward
+  - `tasks-page`: uses `doneCount`/`pendingCount`, wires toggle to `updateTaskStatus`
+- `task-item` UI (list view):
+  - `mat-card` wrapper with content layout
+  - Styled checkbox div (16/20px square, rounded corners, primary fill when done)
+  - Checkmark icon inside checkbox when done
+  - Title (bold), description, created date
+  - `more_vert` icon button (delete menu — TBD wiring)
+  - Line-through + muted color on completed title
 
 ### In progress
 
-- Replace checkbox with `mat-chip` + `mat-menu` status control in `TaskItem`
-- Add `TaskStatusIcon` metadata
-- Wire `statusChange` output through TaskList → TasksPage → service
+- Styling the list view layout (tasks-page + task-form)
 
 ### Next
 
+- Wire delete action from `more_vert` button (currently no click handler)
+- Add `viewMode` signal in `tasks-page` with view toggle (list/board)
+- Create `task-card` component for kanban view
+- Create `task-board` component (3 columns using `todoTasks`/`doingTasks`/`doneTasks`)
+- Style `tasks-page` (toolbar, stats, view toggle)
+- Style `task-form` (Calm Azure design)
+- Style `task-board` + `task-card` (kanban view)
 - Reorganize folders into `list-view/` + `board-view/` + `shared/components/`
 - TypeScript path aliases (`@core/*`, `@features/*`, `@shared/*`)
 - Routing setup with lazy-loaded view components
-- View switcher in toolbar (`mat-button-toggle-group`)
-- List view UI ("Calm Azure" Material 3 design)
-- Board view UI (3-column Kanban)
 - Dark mode toggle
 - Filter chips (All / Active / Completed)
 - Drag & drop in board view (Angular CDK)
