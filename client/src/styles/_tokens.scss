@@ -13,6 +13,9 @@
   --radius-lg: 16px;
   --radius-full: 9999px;
 
+  // Borders
+  --border-base: 2px solid var(--mat-sys-outline);
+
   // Typography
   --font-size-xs: 0.75rem; // 12px
   --font-size-sm: 0.875rem; // 14px
@@ -37,4 +40,14 @@
   --layout-max-width: 800px;
   --toolbar-height: 64px;
   --sidebar-width: 240px;
+
+  // Component sizes
+  --size-xs: 0.625rem; // 10px
+  --size-sm: 0.875rem; // 14px
+  --size-md: 1rem; // 16px
+  --size-lg: 1.125rem; // 18px
+  --size-xl: 1.25rem; // 20px
+  --size-2xl: 1.5rem; // 24px
+  --size-3xl: 2rem; // 32px
+  --size-4xl: 2.5rem; // 40px
 }

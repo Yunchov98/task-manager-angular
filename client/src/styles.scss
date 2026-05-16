@@ -6,6 +6,7 @@
 @use '@angular/material' as mat;
 @use './styles/tokens';
 @use './styles/colors';
+@use './styles/reset';
 
 html {
   height: 100%;
