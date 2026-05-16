@@ -1,16 +1,30 @@
-<div>
-  <div
-    class="checkbox"
-    tabindex="0"
-    (click)="onToggle()"
-    (keydown.enter)="onToggle()"
-    (keydown.space)="onToggle()"
-  >
-    @if (completedTask()) {
-      <mat-icon>check</mat-icon>
-    }
-  </div>
-  <span [class.completed]="completedTask()">{{ task().title }}</span>
-  <p [class.completed]="completedTask()">{{ task().description }}</p>
-  <button (click)="onDelete()">Delete</button>
-</div>
+<mat-card>
+  <mat-card-content class="task-item">
+    <div class="content">
+      <div
+        class="checkbox"
+        [class.done]="completedTask()"
+        tabindex="0"
+        (click)="onToggle()"
+        (keydown.enter)="onToggle()"
+        (keydown.space)="onToggle()"
+      >
+        @if (completedTask()) {
+          <mat-icon>check</mat-icon>
+        }
+      </div>
+      <div>
+        <span class="task" [class.completed]="completedTask()">{{ task().title }}</span>
+        <p>{{ task().description }}</p>
+        <p class="created-at">Created {{ task().createdAt | date }}</p>
+      </div>
+    </div>
+    <button
+      class="more-button"
+      matIconButton
+      aria-label="Example icon button with a vertical three dot icon"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

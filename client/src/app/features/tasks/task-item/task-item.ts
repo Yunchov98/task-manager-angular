@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { Task, TaskStatus } from '../../../core/models/task.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'tm-task-item',
-  imports: [MatIcon],
+  imports: [MatIcon, MatCardModule, MatButtonModule, DatePipe],
   templateUrl: './task-item.html',
   styleUrl: './task-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
